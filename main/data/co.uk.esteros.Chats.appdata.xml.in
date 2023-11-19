@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>co.uk.esteros.Chats</id>
+  <launchable type="desktop-id">co.uk.esteros.Chats.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>ester Chats</name>
+  <summary>Modern Chat Client</summary>
+  <description>
+    <p>ester Chats is a modern open-source chat client for the desktop. It focuses on providing a clean and reliable experience while having your privacy in mind.</p>
+    <p>It supports end-to-end encryption with OMEMO and OpenPGP and allows configuring privacy-related features such as read receipts and typing notifications.</p>
+    <p>ester Chats fetches history from the server and synchronizes messages with other devices.</p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://dino.im/img/appdata/2022-02_screenshot-main.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://dino.im/img/appdata/2022-02_screenshot-call.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://dino.im/img/appdata/start_chat.png</image>
+    </screenshot>
+  </screenshots>
+  <translation type="gettext">dino</translation>
+  <developer_name>ester Chats Development Team</developer_name>
+  <url type="homepage">https://dino.im</url>
+  <url type="bugtracker">https://github.com/dino/dino/issues</url>
+  <url type="donation">https://dino.im/#donate</url>
+  <url type="translate">https://hosted.weblate.org/projects/dino/</url>
+  <update_contact>appstream@dino.im</update_contact>
+  <releases>
+    <release date="2023-11-19" version="0.4-chats">
+      <descripion>
+        <p>ester Chats is a modern chat client, based on Dino! This release is the first, adding easy connection to the server.</p>
+      </descripion>
+    </release>
+    <release date="2023-02-07" version="0.4">
+      <description>
+        <p>The 0.4 release adds support for message reactions and replies. Also, ester Chats is ported to GTK4.</p>
+      </description>
+    </release>
+    <release date="2022-02-12" version="0.3">
+      <description>
+        <p>The 0.3 release is all about calls. ester Chats now supports calls between two or more people!</p>
+      </description>
+    </release>
+    <release date="2020-11-12" version="0.2">
+      <description>
+        <p>The 0.2 release adds message correction, improves the file upload functionality and provides more information about message encryption.</p>
+      </description>
+    </release>
+    <release date="2020-01-29" version="0.1">
+      <description>
+        <p>The first ester Chats release! ester Chats is a secure and open-source application for decentralized messaging.</p>
+      </description>
+    </release>
+  </releases>
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-chat">intense</content_attribute>
+    <content_attribute id="social-audio">intense</content_attribute>
+  </content_rating>
+</component>

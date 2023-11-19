@@ -3,7 +3,6 @@
 
 Prerequisites for building ester Chats:
 valac (install it by typing sudo apt install valac)
-meson (install it by typing sudo apt install meson)
 gee-0.8 (install it by typing sudo apt install libgee-0.8-dev )
 cmake (install it by typing sudo apt install cmake)
 msfgmt (install it by typing sudo apt install gettext)

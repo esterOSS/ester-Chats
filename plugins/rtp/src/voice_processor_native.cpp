@@ -15,13 +15,13 @@ struct _DinoPluginsRtpVoiceProcessorNative {
     gint last_poor_delays;
 };
 
-extern "C" void *echats_plugins_rtp_adjust_to_running_time(GstBaseTransform *transform, GstBuffer *buffer) {
+extern "C" void *dino_plugins_rtp_adjust_to_running_time(GstBaseTransform *transform, GstBuffer *buffer) {
     GstBuffer *copy = gst_buffer_copy(buffer);
     GST_BUFFER_PTS(copy) = gst_segment_to_running_time(&transform->segment, GST_FORMAT_TIME, GST_BUFFER_PTS(buffer));
     return copy;
 }
 
-extern "C" void *echats_plugins_rtp_voice_processor_init_native(gint stream_delay) {
+extern "C" void *dino_plugins_rtp_voice_processor_init_native(gint stream_delay) {
     _DinoPluginsRtpVoiceProcessorNative *native = new _DinoPluginsRtpVoiceProcessorNative();
     webrtc::Config config;
     config.Set<webrtc::ExtendedFilter>(new webrtc::ExtendedFilter(true));
@@ -33,7 +33,7 @@ extern "C" void *echats_plugins_rtp_voice_processor_init_native(gint stream_dela
     return native;
 }
 
-extern "C" void echats_plugins_rtp_voice_processor_setup_native(void *native_ptr) {
+extern "C" void dino_plugins_rtp_voice_processor_setup_native(void *native_ptr) {
     _DinoPluginsRtpVoiceProcessorNative *native = (_DinoPluginsRtpVoiceProcessorNative *) native_ptr;
     webrtc::AudioProcessing *apm = native->apm;
     webrtc::ProcessingConfig pconfig;
@@ -64,7 +64,7 @@ extern "C" void echats_plugins_rtp_voice_processor_setup_native(void *native_ptr
 }
 
 extern "C" void
-echats_plugins_rtp_voice_processor_analyze_reverse_stream(void *native_ptr, GstAudioInfo *info, GstBuffer *buffer) {
+dino_plugins_rtp_voice_processor_analyze_reverse_stream(void *native_ptr, GstAudioInfo *info, GstBuffer *buffer) {
     _DinoPluginsRtpVoiceProcessorNative *native = (_DinoPluginsRtpVoiceProcessorNative *) native_ptr;
     webrtc::StreamConfig config(SAMPLE_RATE, SAMPLE_CHANNELS, false);
     webrtc::AudioProcessing *apm = native->apm;
@@ -84,25 +84,25 @@ echats_plugins_rtp_voice_processor_analyze_reverse_stream(void *native_ptr, GstA
     gst_buffer_unmap(buffer, &map);
 }
 
-extern "C" void echats_plugins_rtp_voice_processor_notify_gain_level(void *native_ptr, gint gain_level) {
+extern "C" void dino_plugins_rtp_voice_processor_notify_gain_level(void *native_ptr, gint gain_level) {
     _DinoPluginsRtpVoiceProcessorNative *native = (_DinoPluginsRtpVoiceProcessorNative *) native_ptr;
     webrtc::AudioProcessing *apm = native->apm;
     apm->gain_control()->set_stream_analog_level(gain_level);
 }
 
-extern "C" gint echats_plugins_rtp_voice_processor_get_suggested_gain_level(void *native_ptr) {
+extern "C" gint dino_plugins_rtp_voice_processor_get_suggested_gain_level(void *native_ptr) {
     _DinoPluginsRtpVoiceProcessorNative *native = (_DinoPluginsRtpVoiceProcessorNative *) native_ptr;
     webrtc::AudioProcessing *apm = native->apm;
     return apm->gain_control()->stream_analog_level();
 }
 
-extern "C" bool echats_plugins_rtp_voice_processor_get_stream_has_voice(void *native_ptr) {
+extern "C" bool dino_plugins_rtp_voice_processor_get_stream_has_voice(void *native_ptr) {
     _DinoPluginsRtpVoiceProcessorNative *native = (_DinoPluginsRtpVoiceProcessorNative *) native_ptr;
     webrtc::AudioProcessing *apm = native->apm;
     return apm->voice_detection()->stream_has_voice();
 }
 
-extern "C" void echats_plugins_rtp_voice_processor_adjust_stream_delay(void *native_ptr) {
+extern "C" void dino_plugins_rtp_voice_processor_adjust_stream_delay(void *native_ptr) {
     _DinoPluginsRtpVoiceProcessorNative *native = (_DinoPluginsRtpVoiceProcessorNative *) native_ptr;
     webrtc::AudioProcessing *apm = native->apm;
     int median, std, poor_delays;
@@ -120,7 +120,7 @@ extern "C" void echats_plugins_rtp_voice_processor_adjust_stream_delay(void *nat
 }
 
 extern "C" void
-echats_plugins_rtp_voice_processor_process_stream(void *native_ptr, GstAudioInfo *info, GstBuffer *buffer) {
+dino_plugins_rtp_voice_processor_process_stream(void *native_ptr, GstAudioInfo *info, GstBuffer *buffer) {
     _DinoPluginsRtpVoiceProcessorNative *native = (_DinoPluginsRtpVoiceProcessorNative *) native_ptr;
     webrtc::StreamConfig config(SAMPLE_RATE, SAMPLE_CHANNELS, false);
     webrtc::AudioProcessing *apm = native->apm;
@@ -142,7 +142,7 @@ echats_plugins_rtp_voice_processor_process_stream(void *native_ptr, GstAudioInfo
     gst_buffer_unmap(buffer, &map);
 }
 
-extern "C" void echats_plugins_rtp_voice_processor_destroy_native(void *native_ptr) {
+extern "C" void dino_plugins_rtp_voice_processor_destroy_native(void *native_ptr) {
     _DinoPluginsRtpVoiceProcessorNative *native = (_DinoPluginsRtpVoiceProcessorNative *) native_ptr;
     delete native;
 }

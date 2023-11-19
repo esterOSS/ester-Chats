@@ -6,7 +6,7 @@ using Dino.Entities;
 
 namespace Dino.Ui {
 
-[GtkTemplate (ui = "/im/echats/Dino/file_default_widget.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/file_default_widget.ui")]
 public class FileDefaultWidget : Box {
 
     public signal void clicked();
@@ -117,18 +117,18 @@ public class FileDefaultWidget : Box {
     }
 
     private static string get_file_icon_name(string? mime_type) {
-        if (mime_type == null) return "echats-file-symbolic";
+        if (mime_type == null) return "dino-file-symbolic";
 
         string generic_icon_name = ContentType.get_generic_icon_name(mime_type) ?? "";
         switch (generic_icon_name) {
-            case "audio-x-generic": return "echats-file-music-symbolic";
-            case "image-x-generic": return "echats-file-image-symbolic";
-            case "text-x-generic": return "echats-file-document-symbolic";
-            case "text-x-generic-template": return "echats-file-document-symbolic";
-            case "video-x-generic": return "echats-file-video-symbolic";
-            case "x-office-document": return "echats-file-document-symbolic";
-            case "x-office-spreadsheet": return "echats-file-table-symbolic";
-            default: return "echats-file-symbolic";
+            case "audio-x-generic": return "dino-file-music-symbolic";
+            case "image-x-generic": return "dino-file-image-symbolic";
+            case "text-x-generic": return "dino-file-document-symbolic";
+            case "text-x-generic-template": return "dino-file-document-symbolic";
+            case "video-x-generic": return "dino-file-video-symbolic";
+            case "x-office-document": return "dino-file-document-symbolic";
+            case "x-office-spreadsheet": return "dino-file-table-symbolic";
+            default: return "dino-file-symbolic";
         }
     }
 

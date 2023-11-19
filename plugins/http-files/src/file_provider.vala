@@ -9,14 +9,14 @@ namespace Dino.Plugins.HttpFiles {
 public class FileProvider : Dino.FileProvider, Object {
 
     private StreamInteractor stream_interactor;
-    private Dino.Database echats_db;
+    private Dino.Database dino_db;
     private Soup.Session session;
     private static Regex http_url_regex = /^https?:\/\/([^\s#]*)$/; // Spaces are invalid in URLs and we can't use fragments for downloads
     private static Regex omemo_url_regex = /^aesgcm:\/\/(.*)#(([A-Fa-f0-9]{2}){48}|([A-Fa-f0-9]{2}){44})$/;
 
-    public FileProvider(StreamInteractor stream_interactor, Dino.Database echats_db) {
+    public FileProvider(StreamInteractor stream_interactor, Dino.Database dino_db) {
         this.stream_interactor = stream_interactor;
-        this.echats_db = echats_db;
+        this.dino_db = dino_db;
         this.session = new Soup.Session();
 
         session.user_agent = @"Dino/$(Dino.get_short_version()) ";

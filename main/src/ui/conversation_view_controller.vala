@@ -40,15 +40,15 @@ public class ConversationViewController : Object {
         drop_event_controller.on_drop.connect(this.on_drag_data_received);
 
         // forward key presses
-        var key_controller = new EventControllerKey() { name = "echats-forward-to-input-key-events-1" };
+        var key_controller = new EventControllerKey() { name = "dino-forward-to-input-key-events-1" };
         key_controller.key_pressed.connect(forward_key_press_to_chat_input);
         view.conversation_frame.add_controller(key_controller);
 
-        var key_controller2 = new EventControllerKey() { name = "echats-forward-to-input-key-events-2" };
+        var key_controller2 = new EventControllerKey() { name = "dino-forward-to-input-key-events-2" };
         key_controller2.key_pressed.connect(forward_key_press_to_chat_input);
         view.chat_input.add_controller(key_controller2);
 
-        var key_controller3 = new EventControllerKey() { name = "echats-forward-to-input-key-events-3" };
+        var key_controller3 = new EventControllerKey() { name = "dino-forward-to-input-key-events-3" };
         key_controller3.key_pressed.connect(forward_key_press_to_chat_input);
         titlebar.get_widget().add_controller(key_controller3);
 

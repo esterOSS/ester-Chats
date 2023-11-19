@@ -84,7 +84,7 @@
                                                 <property name="name">placeholder</property>
                                                 <property name="child">
                                                     <object class="AdwStatusPage">
-                                                        <property name="icon-name">co.uk.esteros.Chats-symbolic</property>
+                                                        <property name="icon-name">im.dino.Dino-symbolic</property>
                                                         <property name="hexpand">True</property>
                                                         <property name="vexpand">True</property>
                                                     </object>

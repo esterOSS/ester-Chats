@@ -28,7 +28,7 @@ public class GlobalSearch {
     public GlobalSearch(StreamInteractor stream_interactor) {
         this.stream_interactor = stream_interactor;
 
-        Builder builder = new Builder.from_resource("/im/echats/Dino/global_search.ui");
+        Builder builder = new Builder.from_resource("/im/dino/Dino/global_search.ui");
         overlay = (Overlay) builder.get_object("overlay");
         search_entry = (SearchEntry) builder.get_object("search_entry");
         entry_number_label = (Label) builder.get_object("entry_number_label");
@@ -47,7 +47,7 @@ public class GlobalSearch {
         results_scrolled.vadjustment.notify["value"].connect(on_scrolled_window_vadjustment_value);
         results_scrolled.vadjustment.notify["upper"].connect_after(on_scrolled_window_vadjustment_upper);
 
-        var overlay_key_events = new EventControllerKey() { name = "echats-search-overlay-key-events" };
+        var overlay_key_events = new EventControllerKey() { name = "dino-search-overlay-key-events" };
         overlay_key_events.key_pressed.connect(on_key_pressed);
         overlay_key_events.key_released.connect(on_key_released);
         overlay.add_controller(overlay_key_events);
@@ -115,16 +115,16 @@ public class GlobalSearch {
 
             // Populate new suggestions
             foreach(SearchSuggestion suggestion in suggestions) {
-                Builder builder = new Builder.from_resource("/im/echats/Dino/search_autocomplete.ui");
-                AvatarPicture avatar = (AvatarPicture)builder.get_object("picture");
+                Builder builder = new Builder.from_resource("/im/dino/Dino/search_autocomplete.ui");
+                AvatarImage avatar = (AvatarImage)builder.get_object("image");
                 Label label = (Label)builder.get_object("label");
                 string display_name;
                 if (suggestion.conversation.type_ == Conversation.Type.GROUPCHAT && !suggestion.conversation.counterpart.equals(suggestion.jid) || suggestion.conversation.type_ == Conversation.Type.GROUPCHAT_PM) {
                     display_name = Util.get_participant_display_name(stream_interactor, suggestion.conversation, suggestion.jid);
-                    avatar.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).add_participant(suggestion.conversation, suggestion.jid);
+                    avatar.set_conversation_participant(stream_interactor, suggestion.conversation, suggestion.jid);
                 } else {
                     display_name = Util.get_conversation_display_name(stream_interactor, suggestion.conversation);
-                    avatar.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).set_conversation(suggestion.conversation);
+                    avatar.set_conversation(stream_interactor, suggestion.conversation);
                 }
                 if (display_name != suggestion.jid.to_string()) {
                     label.set_markup("%s <span font_weight='light' fgalpha='80%%'>%s</span>".printf(Markup.escape_text(display_name), Markup.escape_text(suggestion.jid.to_string())));
@@ -289,10 +289,10 @@ public class GlobalSearch {
     }
 
     private Grid get_skeleton(MessageItem item) {
-        AvatarPicture picture = new AvatarPicture() { height_request=32, width_request=32, margin_end=7, valign=Align.START };
-        picture.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).add_participant(item.conversation, item.jid);
+        AvatarImage image = new AvatarImage() { height=32, width=32, margin_end=7, valign=Align.START, allow_gray = false };
+        image.set_conversation_participant(stream_interactor, item.conversation, item.jid);
         Grid grid = new Grid() { row_homogeneous=false };
-        grid.attach(picture, 0, 0, 1, 2);
+        grid.attach(image, 0, 0, 1, 2);
 
         string display_name = Util.get_participant_display_name(stream_interactor, item.conversation, item.jid);
         Label name_label = new Label(display_name) { ellipsize=EllipsizeMode.END, xalign=0 };

@@ -7,7 +7,7 @@ using Dino.Entities;
 
 namespace Dino.Ui.ConversationSummary {
 
-[GtkTemplate (ui = "/im/echats/Dino/conversation_content_view/view.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/conversation_content_view/view.ui")]
 public class ConversationView : Widget, Plugins.ConversationItemCollection, Plugins.NotificationCollection {
     private const int MESSAGE_MENU_BOX_OFFSET = -20;
 
@@ -329,7 +329,7 @@ public class ConversationView : Widget, Plugins.ConversationItemCollection, Plug
             do_insert_item(item);
         }
         ContentMetaItem meta_item = content_populator.get_content_meta_item(content_item);
-        insert_new(meta_item);
+        Widget w = insert_new(meta_item);
         content_items.add(meta_item);
         meta_items.add(meta_item);
 
@@ -606,12 +606,6 @@ public class ConversationView : Widget, Plugins.ConversationItemCollection, Plug
             widget.dispose();
         }
         widgets.clear();
-
-        Widget? notification = notifications.get_first_child();
-        while (notification != null) {
-            notifications.remove(notification);
-            notification = notifications.get_first_child();
-        }
     }
 
     private void clear_notifications() {

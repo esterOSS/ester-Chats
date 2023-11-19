@@ -38,6 +38,7 @@ public class MessageProcessor : StreamInteractionModule, Object {
         received_pipeline.connect(new FilterMessageListener());
         received_pipeline.connect(new StoreMessageListener(this, stream_interactor));
         received_pipeline.connect(new StoreContentItemListener(stream_interactor));
+        received_pipeline.connect(new MamMessageListener(stream_interactor));
 
         stream_interactor.account_added.connect(on_account_added);
 
@@ -167,6 +168,7 @@ public class MessageProcessor : StreamInteractionModule, Object {
         new_message.counterpart = counterpart_override ?? (new_message.direction == Entities.Message.DIRECTION_SENT ? message.to : message.from);
         new_message.ourpart = new_message.direction == Entities.Message.DIRECTION_SENT ? message.from : message.to;
 
+        XmppStream? stream = stream_interactor.get_stream(account);
         Xmpp.MessageArchiveManagement.MessageFlag? mam_message_flag = Xmpp.MessageArchiveManagement.MessageFlag.get_flag(message);
         EntityInfo entity_info = stream_interactor.get_module(EntityInfo.IDENTITY);
         if (mam_message_flag != null && mam_message_flag.mam_id != null) {
@@ -359,6 +361,29 @@ public class MessageProcessor : StreamInteractionModule, Object {
         public override async bool run(Entities.Message message, Xmpp.MessageStanza stanza, Conversation conversation) {
             if (message.body == null) return true;
             stream_interactor.get_module(ContentItemStore.IDENTITY).insert_message(message, conversation);
+            return false;
+        }
+    }
+
+    private class MamMessageListener : MessageListener {
+
+        public string[] after_actions_const = new string[]{ "DEDUPLICATE" };
+        public override string action_group { get { return "MAM_NODE"; } }
+        public override string[] after_actions { get { return after_actions_const; } }
+
+        private StreamInteractor stream_interactor;
+
+        public MamMessageListener(StreamInteractor stream_interactor) {
+            this.stream_interactor = stream_interactor;
+        }
+
+        public override async bool run(Entities.Message message, Xmpp.MessageStanza stanza, Conversation conversation) {
+            bool is_mam_message = Xmpp.MessageArchiveManagement.MessageFlag.get_flag(stanza) != null;
+            XmppStream? stream = stream_interactor.get_stream(conversation.account);
+            Xmpp.MessageArchiveManagement.Flag mam_flag = Xmpp.MessageArchiveManagement.Flag.get_flag(stream);
+            if (is_mam_message || (mam_flag != null && mam_flag.cought_up == true)) {
+                conversation.account.mam_earliest_synced = message.local_time;
+            }
             return false;
         }
     }

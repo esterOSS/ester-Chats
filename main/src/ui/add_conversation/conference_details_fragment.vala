@@ -7,7 +7,7 @@ using Xmpp.Xep;
 
 namespace Dino.Ui {
 
-[GtkTemplate (ui = "/im/echats/Dino/add_conversation/conference_details_fragment.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/add_conversation/conference_details_fragment.ui")]
 protected class ConferenceDetailsFragment : Box {
 
     public signal void joined();

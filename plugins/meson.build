@@ -1,6 +1,0 @@
-subdir('http-files')
-subdir('ice')
-subdir('notification-sound')
-subdir('omemo')
-subdir('openpgp')
-subdir('rtp')

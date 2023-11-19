@@ -16,7 +16,7 @@ public class Dino.Plugins.Rtp.EchoProbe : Audio.Filter {
     static construct {
         add_static_pad_template(sink_template);
         add_static_pad_template(src_template);
-        set_static_metadata("Acoustic Echo Canceller probe", "Generic/Audio", "Gathers playback buffers for echo cancellation", "Dino Team <contact@echats.im>");
+        set_static_metadata("Acoustic Echo Canceller probe", "Generic/Audio", "Gathers playback buffers for echo cancellation", "Dino Team <contact@dino.im>");
     }
 
     construct {
@@ -64,7 +64,7 @@ public class Dino.Plugins.Rtp.VoiceProcessor : Audio.Filter {
     static construct {
         add_static_pad_template(sink_template);
         add_static_pad_template(src_template);
-        set_static_metadata("Voice Processor (AGC, AEC, filters, etc.)", "Generic/Audio", "Pre-processes voice with WebRTC Audio Processing Library", "Dino Team <contact@echats.im>");
+        set_static_metadata("Voice Processor (AGC, AEC, filters, etc.)", "Generic/Audio", "Pre-processes voice with WebRTC Audio Processing Library", "Dino Team <contact@dino.im>");
     }
 
     construct {

@@ -7,7 +7,7 @@ using Xmpp;
 
 namespace Dino.Ui.ChatInput {
 
-[GtkTemplate (ui = "/im/echats/Dino/chat_input.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/chat_input.ui")]
 public class View : Box {
 
     public string text {
@@ -70,20 +70,20 @@ public class View : Box {
     public void set_input_state(Plugins.InputFieldStatus.MessageType message_type) {
         switch (message_type) {
             case Plugins.InputFieldStatus.MessageType.NONE:
-                this.remove_css_class("echats-input-warning");
-                this.remove_css_class("echats-input-error");
+                this.remove_css_class("dino-input-warning");
+                this.remove_css_class("dino-input-error");
                 break;
             case Plugins.InputFieldStatus.MessageType.INFO:
-                this.remove_css_class("echats-input-warning");
-                this.remove_css_class("echats-input-error");
+                this.remove_css_class("dino-input-warning");
+                this.remove_css_class("dino-input-error");
                 break;
             case Plugins.InputFieldStatus.MessageType.WARNING:
-                this.add_css_class("echats-input-warning");
-                this.remove_css_class("echats-input-error");
+                this.add_css_class("dino-input-warning");
+                this.remove_css_class("dino-input-error");
                 break;
             case Plugins.InputFieldStatus.MessageType.ERROR:
-                this.remove_css_class("echats-input-warning");
-                this.add_css_class("echats-input-error");
+                this.remove_css_class("dino-input-warning");
+                this.add_css_class("dino-input-error");
                 break;
         }
     }

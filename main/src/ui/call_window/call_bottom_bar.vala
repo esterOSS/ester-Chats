@@ -52,7 +52,7 @@ public class Dino.Ui.CallBottomBar : Gtk.Box {
         main_buttons.append(video_button_overlay);
 
         Button button_hang = new Button() { height_request=45, width_request=45, halign=Align.START, valign=Align.START };
-        button_hang.set_child(new Image() { icon_name="echats-phone-hangup-symbolic", pixel_size=22 });
+        button_hang.set_child(new Image() { icon_name="dino-phone-hangup-symbolic", pixel_size=22 });
         button_hang.add_css_class("call-button");
         button_hang.add_css_class("destructive-action");
         button_hang.clicked.connect(() => hang_up());
@@ -113,11 +113,11 @@ public class Dino.Ui.CallBottomBar : Gtk.Box {
 
     public void on_audio_enabled_changed() {
         if (audio_enabled) {
-            audio_image.icon_name = "audio-input-microphone-symbolic";
+            audio_image.icon_name = "dino-microphone-symbolic";
             audio_button.add_css_class("white-button");
             audio_button.remove_css_class("transparent-white-button");
         } else {
-            audio_image.icon_name = "microphone-disabled-symbolic";
+            audio_image.icon_name = "dino-microphone-off-symbolic";
             audio_button.remove_css_class("white-button");
             audio_button.add_css_class("transparent-white-button");
         }
@@ -125,12 +125,12 @@ public class Dino.Ui.CallBottomBar : Gtk.Box {
 
     public void on_video_enabled_changed() {
         if (video_enabled) {
-            video_image.icon_name = "echats-video-symbolic";
+            video_image.icon_name = "dino-video-symbolic";
             video_button.add_css_class("white-button");
             video_button.remove_css_class("transparent-white-button");
 
         } else {
-            video_image.icon_name = "echats-video-off-symbolic";
+            video_image.icon_name = "dino-video-off-symbolic";
             video_button.remove_css_class("white-button");
             video_button.add_css_class("transparent-white-button");
         }

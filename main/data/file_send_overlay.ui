@@ -8,7 +8,7 @@
         <property name="valign">center</property>
         <style>
             <class name="background"/>
-            <class name="echats-file-overlay"/>
+            <class name="dino-file-overlay"/>
         </style>
         <child>
             <object class="GtkBox">

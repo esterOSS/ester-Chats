@@ -18,6 +18,7 @@ public class Account : Object {
     public string? alias { get; set; }
     public bool enabled { get; set; default = false; }
     public string? roster_version { get; set; }
+    public DateTime mam_earliest_synced { get; set; default=new DateTime.from_unix_utc(0); }
 
     private Database? db;
 
@@ -32,7 +33,7 @@ public class Account : Object {
         }
         if (this.full_jid == null) {
             try {
-                this.full_jid = bare_jid.with_resource("echats." + Random.next_int().to_string("%x"));
+                this.full_jid = bare_jid.with_resource("dino." + Random.next_int().to_string("%x"));
             } catch (InvalidJidError e) {
                 error("Auto-generated resource was invalid (%s)", e.message);
             }
@@ -49,6 +50,7 @@ public class Account : Object {
         alias = row[db.account.alias];
         enabled = row[db.account.enabled];
         roster_version = row[db.account.roster_version];
+        mam_earliest_synced = new DateTime.from_unix_utc(row[db.account.mam_earliest_synced]);
 
         notify.connect(on_update);
     }
@@ -64,6 +66,7 @@ public class Account : Object {
                 .value(db.account.alias, alias)
                 .value(db.account.enabled, enabled)
                 .value(db.account.roster_version, roster_version)
+                .value(db.account.mam_earliest_synced, (long)mam_earliest_synced.to_unix())
                 .perform();
 
         notify.connect(on_update);
@@ -103,6 +106,8 @@ public class Account : Object {
                 update.set(db.account.enabled, enabled); break;
             case "roster-version":
                 update.set(db.account.roster_version, roster_version); break;
+            case "mam-earliest-synced":
+                update.set(db.account.mam_earliest_synced, (long)mam_earliest_synced.to_unix()); break;
         }
         update.perform();
     }

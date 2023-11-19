@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: echats-omemo-0.0\n"
+"Project-Id-Version: dino-omemo-0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-07 21:31+0100\n"
 "Language: en\n"

@@ -67,7 +67,7 @@ public class ConversationTitlebarNoCsd : ConversationTitlebar, Object {
     }
 
     public ConversationTitlebarNoCsd() {
-        main.add_css_class("echats-header-right");
+        main.add_css_class("dino-header-right");
     }
 
     public void insert_button(Widget button) {

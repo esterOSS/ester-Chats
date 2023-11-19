@@ -22,7 +22,7 @@ public class AccountSettingsEntry : Plugins.AccountSettingsEntry {
     public AccountSettingsEntry(Plugin plugin) {
         this.plugin = plugin;
 
-        Builder builder = new Builder.from_resource("/im/echats/Dino/openpgp/account_settings_item.ui");
+        Builder builder = new Builder.from_resource("/im/dino/Dino/openpgp/account_settings_item.ui");
         stack = (Stack) builder.get_object("stack");
         label = (Label) builder.get_object("label");
         button = (Button) builder.get_object("button");
@@ -116,10 +116,8 @@ public class AccountSettingsEntry : Plugins.AccountSettingsEntry {
         SourceFunc callback = fetch_keys.callback;
         new Thread<void*> (null, () => { // Querying GnuPG might take some time
             try {
-                keys = GPGHelper.get_keylist(null, true);
-            } catch (Error e) {
-                warning(e.message);
-            }
+            keys = GPGHelper.get_keylist(null, true);
+        } catch (Error e) { }
             Idle.add((owned)callback);
             return null;
         });

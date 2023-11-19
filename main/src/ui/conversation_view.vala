@@ -6,7 +6,7 @@ using Dino.Entities;
 
 namespace Dino.Ui {
 
-[GtkTemplate (ui = "/im/echats/Dino/conversation_view.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/conversation_view.ui")]
 public class ConversationView : Widget {
 
 //    [GtkChild] public unowned ScrolledWindow conversation_scrolled;

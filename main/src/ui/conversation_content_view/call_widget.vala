@@ -26,7 +26,7 @@ namespace Dino.Ui {
         public override Gee.List<Plugins.MessageAction>? get_item_actions(Plugins.WidgetType type) { return null; }
     }
 
-    [GtkTemplate (ui = "/im/echats/Dino/call_widget.ui")]
+    [GtkTemplate (ui = "/im/dino/Dino/call_widget.ui")]
     public class CallWidget : SizeRequestBox {
 
         [GtkChild] public unowned Image image;
@@ -94,15 +94,15 @@ namespace Dino.Ui {
             }
 
             foreach (Jid counterpart in call.counterparts) {
-                AvatarPicture picture = new AvatarPicture() { margin_top=2 };
-                picture.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).add_participant(conversation, counterpart.bare_jid);
-                multiparty_peer_box.append(picture);
-                multiparty_peer_widgets.add(picture);
+                AvatarImage image = new AvatarImage() { force_gray=true, margin_top=2 };
+                image.set_conversation_participant(stream_interactor, conversation, counterpart.bare_jid);
+                multiparty_peer_box.append(image);
+                multiparty_peer_widgets.add(image);
             }
-            AvatarPicture picture2 = new AvatarPicture() { margin_top=2 };
-            picture2.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).add_participant(conversation, call.account.bare_jid);
-            multiparty_peer_box.append(picture2);
-            multiparty_peer_widgets.add(picture2);
+            AvatarImage image2 = new AvatarImage() { force_gray=true, margin_top=2 };
+            image2.set_conversation_participant(stream_interactor, conversation, call.account.bare_jid);
+            multiparty_peer_box.append(image2);
+            multiparty_peer_widgets.add(image2);
 
             outer_additional_box.add_css_class("multiparty-participants");
 
@@ -126,7 +126,7 @@ namespace Dino.Ui {
 
             switch (relevant_state) {
                 case Call.State.RINGING:
-                    image.set_from_icon_name("echats-phone-ring-symbolic");
+                    image.set_from_icon_name("dino-phone-ring-symbolic");
                     if (call.direction == Call.DIRECTION_INCOMING) {
                         bool video = call_manager.should_we_send_video();
 
@@ -151,7 +151,7 @@ namespace Dino.Ui {
                     break;
                 case Call.State.ESTABLISHING:
                 case Call.State.IN_PROGRESS:
-                    image.set_from_icon_name("echats-phone-in-talk-symbolic");
+                    image.set_from_icon_name("dino-phone-in-talk-symbolic");
                     title_label.label = _("Call started");
                     string duration = get_duration_string((new DateTime.now_utc()).difference(call.local_time));
                     subtitle_label.label = _("Started %s ago").printf(duration);
@@ -167,13 +167,13 @@ namespace Dino.Ui {
 
                     break;
                 case Call.State.OTHER_DEVICE:
-                    image.set_from_icon_name("echats-phone-hangup-symbolic");
+                    image.set_from_icon_name("dino-phone-hangup-symbolic");
                     title_label.label = call.direction == Call.DIRECTION_INCOMING ? _("Incoming call") : _("Outgoing call");
                     subtitle_label.label = _("You handled this call on another device");
 
                     break;
                 case Call.State.ENDED:
-                    image.set_from_icon_name("echats-phone-hangup-symbolic");
+                    image.set_from_icon_name("dino-phone-hangup-symbolic");
                     title_label.label = _("Call ended");
                     string formated_end = Util.format_time(call.end_time.to_local(), _("%H∶%M"), _("%l∶%M %p"));
                     string duration = get_duration_string(call.end_time.difference(call.local_time));
@@ -182,7 +182,7 @@ namespace Dino.Ui {
                             _("Lasted %s").printf(duration);
                     break;
                 case Call.State.MISSED:
-                    image.set_from_icon_name("echats-phone-missed-symbolic");
+                    image.set_from_icon_name("dino-phone-missed-symbolic");
                     title_label.label = _("Call missed");
                     if (call.direction == Call.DIRECTION_INCOMING) {
                         subtitle_label.label = _("You missed this call");
@@ -192,7 +192,7 @@ namespace Dino.Ui {
                     }
                     break;
                 case Call.State.DECLINED:
-                    image.set_from_icon_name("echats-phone-hangup-symbolic");
+                    image.set_from_icon_name("dino-phone-hangup-symbolic");
                     title_label.label = _("Call declined");
                     if (call.direction == Call.DIRECTION_INCOMING) {
                         subtitle_label.label = _("You declined this call");
@@ -202,7 +202,7 @@ namespace Dino.Ui {
                     }
                     break;
                 case Call.State.FAILED:
-                    image.set_from_icon_name("echats-phone-hangup-symbolic");
+                    image.set_from_icon_name("dino-phone-hangup-symbolic");
                     title_label.label = _("Call failed");
                     subtitle_label.label = "Call failed to establish";
                     break;

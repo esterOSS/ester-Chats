@@ -97,6 +97,10 @@ public class EntryLabelHybrid : LabelHybrid {
         }
     }
 
+    private void on_focus_leave() {
+        show_label();
+    }
+
     private void update_label() {
         if (visibility) {
             label.label = entry.text;

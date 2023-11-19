@@ -5,7 +5,7 @@ namespace Dino.Ui {
     public Plugins.MessageAction get_reaction_action(ContentItem content_item, Conversation conversation, StreamInteractor stream_interactor) {
         Plugins.MessageAction action = new Plugins.MessageAction();
         action.name = "reaction";
-        action.icon_name = "echats-emoticon-add-symbolic";
+        action.icon_name = "dino-emoticon-add-symbolic";
         action.tooltip = _("Add reaction");
 
         action.callback = (variant) => {

@@ -12,7 +12,6 @@ public class AvatarManager : StreamInteractionModule, Object {
     public string id { get { return IDENTITY.id; } }
 
     public signal void received_avatar(Jid jid, Account account);
-    public signal void fetched_avatar(Jid jid, Account account);
 
     private enum Source {
         USER_AVATARS,
@@ -26,7 +25,6 @@ public class AvatarManager : StreamInteractionModule, Object {
     private HashMap<Jid, string> vcard_avatars = new HashMap<Jid, string>(Jid.hash_func, Jid.equals_func);
     private HashMap<string, Pixbuf> cached_pixbuf = new HashMap<string, Pixbuf>();
     private HashMap<string, Gee.List<SourceFuncWrapper>> pending_pixbuf = new HashMap<string, Gee.List<SourceFuncWrapper>>();
-    private HashSet<string> pending_fetch = new HashSet<string>();
     private const int MAX_PIXEL = 192;
 
     public static void start(StreamInteractor stream_interactor, Database db) {
@@ -47,18 +45,6 @@ public class AvatarManager : StreamInteractionModule, Object {
         });
     }
 
-    public File? get_avatar_file(Account account, Jid jid_) {
-        string? hash = get_avatar_hash(account, jid_);
-        if (hash == null) return null;
-        File file = File.new_for_path(Path.build_filename(folder, hash));
-        if (!file.query_exists()) {
-            fetch_and_store_for_jid.begin(account, jid_);
-            return null;
-        } else {
-            return file;
-        }
-    }
-
     private string? get_avatar_hash(Account account, Jid jid_) {
         Jid jid = jid_;
         if (!stream_interactor.get_module(MucManager.IDENTITY).is_groupchat_occupant(jid_, account)) {
@@ -73,7 +59,6 @@ public class AvatarManager : StreamInteractionModule, Object {
         }
     }
 
-    [Version (deprecated = true)]
     public bool has_avatar_cached(Account account, Jid jid) {
         string? hash = get_avatar_hash(account, jid);
         return hash != null && cached_pixbuf.has_key(hash);
@@ -83,7 +68,6 @@ public class AvatarManager : StreamInteractionModule, Object {
         return get_avatar_hash(account, jid) != null;
     }
 
-    [Version (deprecated = true)]
     public Pixbuf? get_cached_avatar(Account account, Jid jid_) {
         string? hash = get_avatar_hash(account, jid_);
         if (hash == null) return null;
@@ -91,7 +75,6 @@ public class AvatarManager : StreamInteractionModule, Object {
         return null;
     }
 
-    [Version (deprecated = true)]
     public async Pixbuf? get_avatar(Account account, Jid jid_) {
         Jid jid = jid_;
         if (!stream_interactor.get_module(MucManager.IDENTITY).is_groupchat_occupant(jid_, account)) {
@@ -128,7 +111,17 @@ public class AvatarManager : StreamInteractionModule, Object {
         if (image != null) {
             cached_pixbuf[hash] = image;
         } else {
-            if (yield fetch_and_store(stream, account, jid, source, hash)) {
+            Bytes? bytes = null;
+            if (source == 1) {
+                bytes = yield Xmpp.Xep.UserAvatars.fetch_image(stream, jid, hash);
+            } else if (source == 2) {
+                bytes = yield Xmpp.Xep.VCard.fetch_image(stream, jid, hash);
+                if (bytes == null && jid.is_bare()) {
+                    db.avatar.delete().with(db.avatar.jid_id, "=", db.get_jid_id(jid)).perform();
+                }
+            }
+            if (bytes != null) {
+                store_image(hash, bytes);
                 image = yield get_image(hash);
             }
             cached_pixbuf[hash] = image;
@@ -169,7 +162,7 @@ public class AvatarManager : StreamInteractionModule, Object {
         );
 
         foreach (var entry in get_avatar_hashes(account, Source.USER_AVATARS).entries) {
-            on_user_avatar_received.begin(account, entry.key, entry.value);
+            user_avatars[entry.key] = entry.value;
         }
         foreach (var entry in get_avatar_hashes(account, Source.VCARD).entries) {
 
@@ -179,7 +172,7 @@ public class AvatarManager : StreamInteractionModule, Object {
                 continue;
             }
 
-            on_vcard_avatar_received.begin(account, entry.key, entry.value);
+            vcard_avatars[entry.key] = entry.value;
         }
     }
 
@@ -225,53 +218,12 @@ public class AvatarManager : StreamInteractionModule, Object {
         return ret;
     }
 
-    public async bool fetch_and_store_for_jid(Account account, Jid jid) {
-        int source = -1;
-        string? hash = null;
-        if (user_avatars.has_key(jid)) {
-            hash = user_avatars[jid];
-            source = 1;
-        } else if (vcard_avatars.has_key(jid)) {
-            hash = vcard_avatars[jid];
-            source = 2;
-        } else {
-            return false;
-        }
-
-        XmppStream? stream = stream_interactor.get_stream(account);
-        if (stream == null || !stream.negotiation_complete) return false;
-
-        return yield fetch_and_store(stream, account, jid, source, hash);
-    }
-
-    private async bool fetch_and_store(XmppStream stream, Account account, Jid jid, int source, string? hash) {
-        if (hash == null || pending_fetch.contains(hash)) return false;
-
-        pending_fetch.add(hash);
-        Bytes? bytes = null;
-        if (source == 1) {
-            bytes = yield Xmpp.Xep.UserAvatars.fetch_image(stream, jid, hash);
-        } else if (source == 2) {
-            bytes = yield Xmpp.Xep.VCard.fetch_image(stream, jid, hash);
-            if (bytes == null && jid.is_bare()) {
-                db.avatar.delete().with(db.avatar.jid_id, "=", db.get_jid_id(jid)).perform();
-            }
-        }
-
-        if (bytes != null) {
-            yield store_image(hash, bytes);
-            fetched_avatar(jid, account);
-        }
-        pending_fetch.remove(hash);
-        return bytes != null;
-    }
-
-    private async void store_image(string id, Bytes data) {
+    public void store_image(string id, Bytes data) {
         File file = File.new_for_path(Path.build_filename(folder, id));
         try {
             if (file.query_exists()) file.delete(); //TODO y?
             DataOutputStream fos = new DataOutputStream(file.create(FileCreateFlags.REPLACE_DESTINATION));
-            yield fos.write_bytes_async(data);
+            fos.write_bytes_async.begin(data);
         } catch (Error e) {
             // Ignore: we failed in storing, so we refuse to display later...
         }

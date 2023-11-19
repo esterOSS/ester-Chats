@@ -8,7 +8,7 @@ using Xmpp;
 
 namespace Dino.Ui.ManageAccounts {
 
-[GtkTemplate (ui = "/im/echats/Dino/manage_accounts/dialog.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/manage_accounts/dialog.ui")]
 public class Dialog : Gtk.Dialog {
 
     public signal void account_enabled(Account account);
@@ -19,7 +19,7 @@ public class Dialog : Gtk.Dialog {
     [GtkChild] public unowned Button no_accounts_add;
     [GtkChild] public unowned Button add_account_button;
     [GtkChild] public unowned Button remove_account_button;
-    [GtkChild] public unowned AvatarPicture picture;
+    [GtkChild] public unowned AvatarImage image;
     [GtkChild] public unowned Button image_button;
     [GtkChild] public unowned Label jid_label;
     [GtkChild] public unowned Label state_label;
@@ -178,14 +178,14 @@ public class Dialog : Gtk.Dialog {
 
     private void on_received_avatar(Jid jid, Account account) {
         if (selected_account.equals(account) && jid.equals(account.bare_jid)) {
-            picture.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).add_participant(new Conversation(account.bare_jid, account, Conversation.Type.CHAT), account.bare_jid);
+            image.set_conversation(stream_interactor, new Conversation(account.bare_jid, account, Conversation.Type.CHAT));
         }
     }
 
     private void populate_grid_data(Account account) {
         active_switch.state_set.disconnect(change_account_state);
 
-        picture.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).add_participant(new Conversation(account.bare_jid, account, Conversation.Type.CHAT), account.bare_jid);
+        image.set_conversation(stream_interactor, new Conversation(account.bare_jid, account, Conversation.Type.CHAT));
         active_switch.set_active(account.enabled);
         jid_label.label = account.bare_jid.to_string();
 

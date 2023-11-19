@@ -1,10 +1,10 @@
-# Catalan translation for echats-openpgp.
-# This file is distributed under the same license as the echats package.
+# Catalan translation for dino-openpgp.
+# This file is distributed under the same license as the dino package.
 # Jordi Mallach <jordi@mallach.net>, 2018.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: echats-openpgp 20180123\n"
+"Project-Id-Version: dino-openpgp 20180123\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-07 21:31+0100\n"
 "PO-Revision-Date: 2018-01-24 11:24+0100\n"

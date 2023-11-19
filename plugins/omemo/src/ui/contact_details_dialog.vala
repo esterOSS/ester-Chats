@@ -8,7 +8,7 @@ using Gdk;
 
 namespace Dino.Plugins.Omemo {
 
-[GtkTemplate (ui = "/im/echats/Dino/omemo/contact_details_dialog.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/omemo/contact_details_dialog.ui")]
 public class ContactDetailsDialog : Gtk.Dialog {
 
     private Plugin plugin;

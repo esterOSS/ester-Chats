@@ -6,7 +6,7 @@ using Dino.Entities;
 
 namespace Dino.Ui {
 
-public class MainWindow : Adw.ApplicationWindow {
+public class MainWindow : Adw.Window {
 
     public signal void conversation_selected(Conversation conversation);
 
@@ -49,7 +49,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
         this.title = "Chats";
 
-        this.add_css_class("echats-main");
+        this.add_css_class("dino-main");
 
         ((Widget)this).realize.connect(restore_window_size);
 
@@ -59,7 +59,7 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     private void setup_unified() {
-        Builder builder = new Builder.from_resource("/im/echats/Dino/unified_main_content.ui");
+        Builder builder = new Builder.from_resource("/im/dino/Dino/unified_main_content.ui");
         leaflet = (Adw.Leaflet) builder.get_object("leaflet");
         box.append(leaflet);
         left_box = (Box) builder.get_object("left_box");
@@ -191,7 +191,7 @@ public class NoAccountsPlaceholder : MainWindowPlaceholder {
     }
 }
 
-[GtkTemplate (ui = "/im/echats/Dino/unified_window_placeholder.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/unified_window_placeholder.ui")]
 public class MainWindowPlaceholder : Box {
     [GtkChild] public unowned Adw.StatusPage status_page;
     [GtkChild] public unowned Button primary_button;

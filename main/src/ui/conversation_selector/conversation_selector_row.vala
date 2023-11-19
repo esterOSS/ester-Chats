@@ -9,10 +9,10 @@ using Xmpp;
 
 namespace Dino.Ui {
 
-[GtkTemplate (ui = "/im/echats/Dino/conversation_row.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/conversation_row.ui")]
 public class ConversationSelectorRow : ListBoxRow {
 
-    [GtkChild] protected unowned AvatarPicture picture;
+    [GtkChild] protected unowned AvatarImage image;
     [GtkChild] protected unowned Label name_label;
     [GtkChild] protected unowned Label time_label;
     [GtkChild] protected unowned Label nick_label;
@@ -101,7 +101,7 @@ public class ConversationSelectorRow : ListBoxRow {
         x_button.clicked.connect(() => {
             stream_interactor.get_module(ConversationManager.IDENTITY).close_conversation(conversation);
         });
-        picture.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).set_conversation(conversation);
+        image.set_conversation(stream_interactor, conversation);
         conversation.notify["read-up-to-item"].connect(() => update_read());
         conversation.notify["pinned"].connect(() => { update_pinned_icon(); });
 
@@ -283,7 +283,7 @@ public class ConversationSelectorRow : ListBoxRow {
         }
     }
 
-    private static Regex echats_resource_regex = /^echats\.[a-f0-9]{8}$/;
+    private static Regex dino_resource_regex = /^dino\.[a-f0-9]{8}$/;
 
     private Widget generate_tooltip() {
         Grid grid = new Grid() { row_spacing=5, column_homogeneous=false, column_spacing=5, margin_start=7, margin_end=7, margin_top=7, margin_bottom=7 };
@@ -308,9 +308,9 @@ public class ConversationSelectorRow : ListBoxRow {
 
                 Image image = new Image() { hexpand=false, valign=Align.CENTER };
                 if (identity != null && (identity.type_ == Xep.ServiceDiscovery.Identity.TYPE_PHONE || identity.type_ == Xep.ServiceDiscovery.Identity.TYPE_TABLET)) {
-                    image.set_from_icon_name("echats-device-phone-symbolic");
+                    image.set_from_icon_name("dino-device-phone-symbolic");
                 } else {
-                    image.set_from_icon_name("echats-device-desktop-symbolic");
+                    image.set_from_icon_name("dino-device-desktop-symbolic");
                 }
 
                 if (show == Presence.Stanza.SHOW_AWAY) {
@@ -333,7 +333,7 @@ public class ConversationSelectorRow : ListBoxRow {
                 var sb = new StringBuilder();
                 if (identity != null && identity.name != null) {
                     sb.append(identity.name);
-                } else if (full_jid.resourcepart != null && echats_resource_regex.match(full_jid.resourcepart)) {
+                } else if (full_jid.resourcepart != null && dino_resource_regex.match(full_jid.resourcepart)) {
                     sb.append("Dino");
                 } else if (full_jid.resourcepart != null) {
                     sb.append(full_jid.resourcepart);

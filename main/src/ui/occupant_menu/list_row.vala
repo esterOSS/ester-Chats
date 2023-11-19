@@ -8,16 +8,16 @@ namespace Dino.Ui.OccupantMenu {
 public class ListRow : Object {
 
     private Grid main_grid;
-    private AvatarPicture picture;
+    private AvatarImage image;
     public Label name_label;
 
     public Conversation? conversation;
     public Jid? jid;
 
     construct {
-        Builder builder = new Builder.from_resource("/im/echats/Dino/occupant_list_item.ui");
+        Builder builder = new Builder.from_resource("/im/dino/Dino/occupant_list_item.ui");
         main_grid = (Grid) builder.get_object("main_grid");
-        picture = (AvatarPicture) builder.get_object("picture");
+        image = (AvatarImage) builder.get_object("image");
         name_label = (Label) builder.get_object("name_label");
     }
 
@@ -26,12 +26,12 @@ public class ListRow : Object {
         this.jid = jid;
 
         name_label.label = Util.get_participant_display_name(stream_interactor, conversation, jid);
-        picture.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).add_participant(conversation, jid);
+        image.set_conversation_participant(stream_interactor, conversation, jid);
     }
 
     public ListRow.label(string c, string text) {
         name_label.label = text;
-        picture.model = new ViewModel.CompatAvatarPictureModel(null).add(c);
+        image.set_text(c);
     }
 
     public Widget get_widget() {

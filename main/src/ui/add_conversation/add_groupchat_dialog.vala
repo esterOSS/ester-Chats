@@ -6,7 +6,7 @@ using Xmpp;
 
 namespace Dino.Ui {
 
-[GtkTemplate (ui = "/im/echats/Dino/add_conversation/add_groupchat_dialog.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/add_conversation/add_groupchat_dialog.ui")]
 protected class AddGroupchatDialog : Gtk.Dialog {
 
     [GtkChild] private unowned Stack accounts_stack;

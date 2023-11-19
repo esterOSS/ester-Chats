@@ -28,7 +28,7 @@
                     <property name="name">download_image</property>
                     <property name="child">
                       <object class="GtkImage">
-                        <property name="icon-name">echats-file-download-symbolic</property>
+                        <property name="icon-name">dino-file-download-symbolic</property>
                         <property name="pixel-size">30</property>
                         <property name="opacity">0.7</property>
                       </object>
@@ -80,7 +80,7 @@
             </child>
             <child>
               <object class="GtkMenuButton" id="file_menu">
-                <property name="icon-name">view-more-symbolic</property>
+                <property name="icon-name">open-menu-symbolic</property>
                 <property name="opacity">0</property>
                 <property name="has_frame">False</property>
               </object>

@@ -7,7 +7,7 @@
                     <object class="GtkBox">
                         <property name="orientation">vertical</property>
                         <style>
-                            <class name="echats-conversation"/>
+                            <class name="dino-conversation"/>
                         </style>
                         <child>
                             <object class="GtkOverlay" id="conversation_overlay">
@@ -62,7 +62,7 @@
                             <object class="GtkBox">
                                 <property name="opacity">0.7</property>
                                 <style>
-                                    <class name="echats-white-overlay"/>
+                                    <class name="dino-white-overlay"/>
                                 </style>
                             </object>
                         </child>

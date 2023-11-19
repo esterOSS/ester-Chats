@@ -20,7 +20,7 @@ public class FileSendOverlay {
     private bool can_send = true;
 
     public FileSendOverlay(File file, FileInfo file_info) {
-        Builder builder = new Builder.from_resource("/im/echats/Dino/file_send_overlay.ui");
+        Builder builder = new Builder.from_resource("/im/dino/Dino/file_send_overlay.ui");
         main_box = (Box) builder.get_object("main_box");
         close_button = (Button) builder.get_object("close_button");
         send_button = (Button) builder.get_object("send_button");

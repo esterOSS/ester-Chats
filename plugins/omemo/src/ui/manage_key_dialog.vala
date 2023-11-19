@@ -3,7 +3,7 @@ using Qlite;
 
 namespace Dino.Plugins.Omemo {
 
-[GtkTemplate (ui = "/im/echats/Dino/omemo/manage_key_dialog.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/omemo/manage_key_dialog.ui")]
 public class ManageKeyDialog : Gtk.Dialog {
 
     [GtkChild] private unowned Stack manage_stack;

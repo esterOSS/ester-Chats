@@ -44,7 +44,7 @@ namespace Dino.Ui {
             bottom_bar_revealer.set_child(bottom_bar);
             own_video_box.add_css_class("own-video");
 
-            this.add_css_class("echats-call-window");
+            this.add_css_class("dino-call-window");
 
             overlay.set_child(grid);
             overlay.add_overlay(own_video_box);
@@ -253,12 +253,11 @@ namespace Dino.Ui {
         }
 
         private bool on_get_child_position(Widget widget, out Gdk.Rectangle allocation) {
-            allocation = Gdk.Rectangle();
-
             if (widget == own_video_box) {
                 int width = get_size(Orientation.HORIZONTAL);
                 int height = get_size(Orientation.VERTICAL);
 
+                allocation = Gdk.Rectangle();
                 allocation.width = own_video_width;
                 allocation.height = own_video_height;
                 allocation.x = width - own_video_width - 20;

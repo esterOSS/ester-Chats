@@ -9,7 +9,7 @@
         <child>
             <object class="GtkFrame" id="frame">
                 <style>
-                    <class name="echats-chatinput"/>
+                    <class name="dino-chatinput"/>
                 </style>
                 <child>
                     <object class="GtkBox">
@@ -22,12 +22,12 @@
                                 <property name="margin-top">3</property>
                                 <property name="valign">start</property>
                                 <style>
-                                    <class name="echats-chatinput-button"/>
+                                    <class name="dino-chatinput-button"/>
                                     <class name="flat"/>
                                 </style>
                                 <child>
                                     <object class="GtkImage">
-                                        <property name="icon-name">emoji-people-symbolic</property>
+                                        <property name="icon-name">dino-emoticon-symbolic</property>
                                         <property name="icon-size">1</property>
                                     </object>
                                 </child>

@@ -112,7 +112,7 @@
                                                                 <property name="spacing">5</property>
                                                                 <child>
                                                                     <object class="GtkMenuButton" id="show_qrcode_button">
-                                                                        <property name="icon-name">echats-qr-code-symbolic</property>
+                                                                        <property name="icon-name">dino-qr-code-symbolic</property>
                                                                         <property name="halign">start</property>
                                                                         <property name="hexpand">1</property>
                                                                     </object>

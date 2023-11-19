@@ -71,7 +71,7 @@ set_path(EXEC_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}" "Installation directory f
 set_path(SHARE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/share" "Installation directory for read-only architecture-independent data")
 
 set_path(BIN_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/bin" "Installation directory for user executables")
-set_path(DATA_INSTALL_DIR "${SHARE_INSTALL_PREFIX}/echats" "Installation directory for echats-specific data")
+set_path(DATA_INSTALL_DIR "${SHARE_INSTALL_PREFIX}/dino" "Installation directory for dino-specific data")
 set_path(APPDATA_FILE_INSTALL_DIR "${SHARE_INSTALL_PREFIX}/metainfo" "Installation directory for .appdata.xml files")
 set_path(DESKTOP_FILE_INSTALL_DIR "${SHARE_INSTALL_PREFIX}/applications" "Installation directory for .desktop files")
 set_path(SERVICE_FILE_INSTALL_DIR "${SHARE_INSTALL_PREFIX}/dbus-1/services" "Installation directory for .service files")
@@ -79,7 +79,7 @@ set_path(ICON_INSTALL_DIR "${SHARE_INSTALL_PREFIX}/icons" "Installation director
 set_path(INCLUDE_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/include" "Installation directory for C header files")
 set_path(LIB_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/${LIBDIR_NAME}" "Installation directory for object code libraries")
 set_path(LOCALE_INSTALL_DIR "${SHARE_INSTALL_PREFIX}/locale" "Installation directory for locale files")
-set_path(PLUGIN_INSTALL_DIR "${LIB_INSTALL_DIR}/echats/plugins" "Installation directory for echats plugin object code files")
+set_path(PLUGIN_INSTALL_DIR "${LIB_INSTALL_DIR}/dino/plugins" "Installation directory for dino plugin object code files")
 set_path(VAPI_INSTALL_DIR "${SHARE_INSTALL_PREFIX}/vala/vapi" "Installation directory for Vala API files")
 
 set(TARGET_INSTALL LIBRARY DESTINATION ${LIB_INSTALL_DIR} RUNTIME DESTINATION ${BIN_INSTALL_DIR} PUBLIC_HEADER DESTINATION ${INCLUDE_INSTALL_DIR} ARCHIVE DESTINATION ${LIB_INSTALL_DIR})

@@ -4,6 +4,7 @@ find_packages(RTP_PACKAGES REQUIRED
     Gee
     GLib
     GModule
+    GnuTLS
     GObject
     GTK4
     Gst
@@ -79,7 +80,7 @@ SOURCES
 CUSTOM_VAPIS
     ${CMAKE_BINARY_DIR}/exports/crypto-vala.vapi
     ${CMAKE_BINARY_DIR}/exports/xmpp-vala.vapi
-    ${CMAKE_BINARY_DIR}/exports/echats.vapi
+    ${CMAKE_BINARY_DIR}/exports/dino.vapi
     ${CMAKE_BINARY_DIR}/exports/qlite.vapi
 PACKAGES
     ${RTP_PACKAGES}

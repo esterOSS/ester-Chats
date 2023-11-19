@@ -35,7 +35,7 @@ public class EncryptionListEntry : Plugins.EncryptionListEntry, Object {
 
 
         if (row.is_present() && (TrustLevel) row[db.identity_meta.trust_level] == TrustLevel.VERIFIED) {
-            return "echats-security-high-symbolic";
+            return "dino-security-high-symbolic";
         }
         return null;
     }

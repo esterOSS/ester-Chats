@@ -28,10 +28,10 @@ public class Dino.Ui.Application : Adw.Application, Dino.Application {
     };
 
     public Application() throws Error {
-        Object(application_id: "co.uk.esteros.Chats", flags: ApplicationFlags.HANDLES_OPEN);
+        Object(application_id: "im.dino.Dino", flags: ApplicationFlags.HANDLES_OPEN);
         init();
         Environment.set_application_name("Chats");
-        Window.set_default_icon_name("co.uk.esteros.Chats");
+        Window.set_default_icon_name("im.dino.Dino");
 
         create_actions();
         add_main_option_entries(options);
@@ -194,6 +194,19 @@ public class Dino.Ui.Application : Adw.Application, Dino.Application {
         add_action(loop_conversations_bw_action);
         set_accels_for_action("app.loop_conversations_bw", KEY_COMBINATION_LOOP_CONVERSATIONS_REV);
 
+        SimpleAction open_shortcuts_action = new SimpleAction("open_shortcuts", null);
+        open_shortcuts_action.activate.connect((variant) => {
+            Builder builder = new Builder.from_resource("/im/dino/Dino/shortcuts.ui");
+            ShortcutsWindow dialog = (ShortcutsWindow) builder.get_object("shortcuts-window");
+            if (!use_csd()) {
+                dialog.set_titlebar(null);
+            }
+            dialog.title = _("Keyboard Shortcuts");
+            dialog.set_transient_for(get_active_window());
+            dialog.present();
+        });
+        add_action(open_shortcuts_action);
+
         SimpleAction accept_call_action = new SimpleAction("accept-call", new VariantType.tuple(new VariantType[]{VariantType.INT32, VariantType.INT32}));
         accept_call_action.activate.connect((variant) => {
             int conversation_id = variant.get_child_value(0).get_int32();
@@ -258,21 +271,21 @@ public class Dino.Ui.Application : Adw.Application, Dino.Application {
         }
 #if Adw_1_2
         Adw.AboutWindow about_window = new Adw.AboutWindow();
-        about_window.application_icon = "co.uk.esteros.Chats";
+        about_window.application_icon = "im.dino.Dino";
         about_window.application_name = "Chats";
-        about_window.issue_url = "https://github.com/echats/echats/issues";
+        about_window.issue_url = "https://github.com/dino/dino/issues";
 #else
         Gtk.AboutDialog about_window = new Gtk.AboutDialog();
-        about_window.logo_icon_name = "co.uk.esteros.Chats";
+        about_window.logo_icon_name = "im.dino.Dino";
         about_window.program_name = "Chats";
-        about_window.website_label = "echats.im";
+        about_window.website_label = "dino.im";
 #endif
         about_window.destroy_with_parent = true;
         about_window.transient_for = window;
         about_window.modal = true;
         about_window.title = _("About Chats");
         about_window.version = version;
-        about_window.website = "https://echats.im/";
+        about_window.website = "https://dino.im/";
         about_window.copyright = "Copyright © 2016-2023 - Dino Team and the ester Team";
         about_window.license_type = License.GPL_3_0;
 

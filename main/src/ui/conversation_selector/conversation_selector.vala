@@ -14,6 +14,7 @@ public class ConversationSelector : Widget {
     ListBox list_box = new ListBox() { hexpand=true };
 
     private StreamInteractor stream_interactor;
+    private uint? drag_timeout;
     private HashMap<Conversation, ConversationSelectorRow> rows = new HashMap<Conversation, ConversationSelectorRow>(Conversation.hash_func, Conversation.equals_func);
 
     public ConversationSelector init(StreamInteractor stream_interactor) {

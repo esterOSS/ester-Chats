@@ -4,10 +4,10 @@ using Dino.Entities;
 
 namespace Dino.Ui.ManageAccounts {
 
-[GtkTemplate (ui = "/im/echats/Dino/manage_accounts/account_row.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/manage_accounts/account_row.ui")]
 public class AccountRow :  Gtk.ListBoxRow {
 
-    [GtkChild] public unowned AvatarPicture picture;
+    [GtkChild] public unowned AvatarImage image;
     [GtkChild] public unowned Label jid_label;
     [GtkChild] public unowned Image icon;
 
@@ -17,7 +17,7 @@ public class AccountRow :  Gtk.ListBoxRow {
     public AccountRow(StreamInteractor stream_interactor, Account account) {
         this.stream_interactor = stream_interactor;
         this.account = account;
-        picture.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).add_participant(new Conversation(account.bare_jid, account, Conversation.Type.CHAT), account.bare_jid);
+        image.set_conversation(stream_interactor, new Conversation(account.bare_jid, account, Conversation.Type.CHAT));
         jid_label.set_label(account.bare_jid.to_string());
 
         stream_interactor.connection_manager.connection_error.connect((account, error) => {

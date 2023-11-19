@@ -5,7 +5,7 @@
     <object class="AdwHeaderBar" id="header_bar">
         <property name="hexpand">False</property>
         <style>
-            <class name="echats-left"/>
+            <class name="dino-left"/>
         </style>
         <child>
             <object class="GtkMenuButton" id="add_button">

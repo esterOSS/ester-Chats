@@ -16,7 +16,7 @@ public class Dino.Plugins.Rtp.Paintable : Gdk.Paintable, Object {
 
     public override Gdk.Paintable get_current_image() {
         if (image != null) return image;
-        return Gdk.Paintable.empty(0, 0);
+        return Gdk.Paintable.new_empty(0, 0);
     }
 
     public override int get_intrinsic_width() {
@@ -67,7 +67,7 @@ public class Dino.Plugins.Rtp.Sink : Gst.Video.Sink {
     private Gst.Video.Info info = new Gst.Video.Info();
 
     class construct {
-        set_metadata("Dino Gtk Video Sink", "Sink/Video", "The video sink used by Dino", "Dino Team <team@echats.im>");
+        set_metadata("Dino Gtk Video Sink", "Sink/Video", "The video sink used by Dino", "Dino Team <team@dino.im>");
         add_pad_template(new Gst.PadTemplate("sink", Gst.PadDirection.SINK, Gst.PadPresence.ALWAYS, Gst.Caps.from_string(@"video/x-raw, format={ BGRA, ARGB, RGBA, ABGR, RGB, BGR }")));
     }
 

@@ -5,7 +5,7 @@ using Gtk;
 using Dino.Entities;
 
 namespace Dino.Ui {
-private const string OPEN_CONVERSATION_DETAILS_URI = "x-echats:open-conversation-details";
+private const string OPEN_CONVERSATION_DETAILS_URI = "x-dino:open-conversation-details";
 
 public class ChatInputController : Object {
 
@@ -36,7 +36,7 @@ public class ChatInputController : Object {
 
         reset_input_field_status();
 
-        var text_input_key_events = new EventControllerKey() { name = "echats-text-input-controller-key-events" };
+        var text_input_key_events = new EventControllerKey() { name = "dino-text-input-controller-key-events" };
         text_input_key_events.key_pressed.connect(on_text_input_key_press);
         chat_input.chat_text_view.text_view.add_controller(text_input_key_events);
 
@@ -54,8 +54,9 @@ public class ChatInputController : Object {
 
         status_description_label.activate_link.connect((uri) => {
             if (uri == OPEN_CONVERSATION_DETAILS_URI){
-                var conversation_details = ConversationDetails.setup_dialog(conversation, stream_interactor, (Window)chat_input.get_root());
-                conversation_details.present();
+                ContactDetails.Dialog contact_details_dialog = new ContactDetails.Dialog(stream_interactor, conversation);
+                contact_details_dialog.set_transient_for((Gtk.Window) chat_input.get_root());
+                contact_details_dialog.present();
             }
             return true;
         });

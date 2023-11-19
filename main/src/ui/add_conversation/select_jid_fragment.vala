@@ -6,7 +6,7 @@ using Xmpp;
 
 namespace Dino.Ui {
 
-[GtkTemplate (ui = "/im/echats/Dino/add_conversation/select_jid_fragment.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/add_conversation/select_jid_fragment.ui")]
 public class SelectJidFragment : Gtk.Box {
 
     public signal void add_jid();
@@ -132,7 +132,7 @@ public class SelectJidFragment : Gtk.Box {
             } else {
                 via_label.visible = false;
             }
-            picture.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).add("+");
+            image.set_text("?");
         }
     }
 }

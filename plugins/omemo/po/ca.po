@@ -1,10 +1,10 @@
-# Catalan translation for echats-omemo.
-# This file is distributed under the same license as the echats package.
+# Catalan translation for dino-omemo.
+# This file is distributed under the same license as the dino package.
 # Jordi Mallach <jordi@mallach.net>, 2018.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: echats-omemo 20180123\n"
+"Project-Id-Version: dino-omemo 20180123\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-07 21:31+0100\n"
 "PO-Revision-Date: 2020-01-14 05:21+0000\n"

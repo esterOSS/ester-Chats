@@ -20,7 +20,7 @@
                         <property name="vexpand">True</property>
                         <child>
                             <object class="AdwStatusPage" id="status_page">
-                                <property name="icon-name">co.uk.esteros.Chats-symbolic</property>
+                                <property name="icon-name">im.dino.Dino-symbolic</property>
                             </object>
                         </child>
                         <child>

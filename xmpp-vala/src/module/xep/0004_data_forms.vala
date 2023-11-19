@@ -38,7 +38,7 @@ public class DataForm {
         }
     }
 
-    public class Field : Object {
+    public class Field {
         public StanzaNode node { get; set; }
         public string? label {
             get { return node.get_attribute("label", NS_URI); }

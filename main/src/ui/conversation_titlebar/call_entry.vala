@@ -18,7 +18,7 @@ namespace Dino.Ui {
         public CallTitlebarEntry(StreamInteractor stream_interactor) {
             this.stream_interactor = stream_interactor;
 
-            button.set_icon_name("echats-phone-symbolic");
+            button.set_icon_name("dino-phone-symbolic");
 
             Menu menu_model = new Menu();
             menu_model.append(_("Audio call"), "call.audio");

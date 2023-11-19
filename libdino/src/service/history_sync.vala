@@ -388,6 +388,9 @@ public class Dino.HistorySync {
             page_result = PageResult.NoMoreMessages;
         }
 
+        string selection = null;
+        string[] selection_args = {};
+
         string query_id = query_params.query_id;
         string? after_id = query_params.start_id;
 

@@ -45,7 +45,7 @@ public class ChatTextView : Box {
         scrolled_window.set_child(text_view);
         this.append(scrolled_window);
 
-        var text_input_key_events = new EventControllerKey() { name = "echats-text-input-view-key-events" };
+        var text_input_key_events = new EventControllerKey() { name = "dino-text-input-view-key-events" };
         text_input_key_events.key_pressed.connect(on_text_input_key_press);
         text_view.add_controller(text_input_key_events);
 

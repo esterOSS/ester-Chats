@@ -329,7 +329,7 @@ public class ConnectionManager : Object {
         /* FIXME: We should also check for connectivity eventually. For more
          * details on why we don't do it for now, see:
          *
-         * - https://github.com/echats/echats/pull/236#pullrequestreview-86851793
+         * - https://github.com/dino/dino/pull/236#pullrequestreview-86851793
          * - https://bugzilla.gnome.org/show_bug.cgi?id=792240
          */
         return network_monitor != null && network_monitor.network_available;

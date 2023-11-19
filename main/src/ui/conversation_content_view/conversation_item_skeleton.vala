@@ -12,7 +12,7 @@ public class ConversationItemSkeleton : Plugins.ConversationItemWidgetInterface,
     public Grid main_grid { get; set; }
     public Label name_label { get; set; }
     public Label time_label { get; set; }
-    public AvatarPicture avatar_picture { get; set; }
+    public AvatarImage avatar_image { get; set; }
     public Image encryption_image { get; set; }
     public Image received_image { get; set; }
 
@@ -46,12 +46,12 @@ public class ConversationItemSkeleton : Plugins.ConversationItemWidgetInterface,
         item.bind_property("in-edit-mode", this, "item-in-edit-mode");
         this.notify["item-in-edit-mode"].connect(update_edit_mode);
 
-        Builder builder = new Builder.from_resource("/im/echats/Dino/conversation_item_widget.ui");
+        Builder builder = new Builder.from_resource("/im/dino/Dino/conversation_item_widget.ui");
         main_grid = (Grid) builder.get_object("main_grid");
         main_grid.add_css_class("message-box");
         name_label = (Label) builder.get_object("name_label");
         time_label = (Label) builder.get_object("time_label");
-        avatar_picture = (AvatarPicture) builder.get_object("avatar_picture");
+        avatar_image = (AvatarImage) builder.get_object("avatar_image");
         encryption_image = (Image) builder.get_object("encrypted_image");
         received_image = (Image) builder.get_object("marked_image");
 
@@ -62,8 +62,7 @@ public class ConversationItemSkeleton : Plugins.ConversationItemWidgetInterface,
         }
 
         if (item.requires_header) {
-            // TODO: For MUC messags, use real jid from message if known
-            avatar_picture.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).add_participant(conversation, item.jid);
+            avatar_image.set_conversation_participant(stream_interactor, conversation, item.jid);
         }
 
         this.notify["show-skeleton"].connect(update_margin);
@@ -117,7 +116,7 @@ public class ConversationItemSkeleton : Plugins.ConversationItemWidgetInterface,
     }
 
     private void update_margin() {
-        avatar_picture.visible = show_skeleton;
+        avatar_image.visible = show_skeleton;
         name_label.visible = show_skeleton;
         time_label.visible = show_skeleton;
         encryption_image.visible = show_skeleton;
@@ -190,11 +189,11 @@ public class ConversationItemSkeleton : Plugins.ConversationItemWidgetInterface,
     private void update_received_mark() {
         switch (content_meta_item.mark) {
             case Message.Marked.RECEIVED: 
-                received_image.icon_name = "echats-tick-symbolic";
+                received_image.icon_name = "dino-tick-symbolic";
                 received_image.tooltip_text = Util.string_if_tooltips_active(_("Delivered"));
                 break;
             case Message.Marked.READ:
-                received_image.icon_name = "echats-double-tick-symbolic";
+                received_image.icon_name = "dino-double-tick-symbolic";
                 received_image.tooltip_text = Util.string_if_tooltips_active(_("Read"));
                 break;
             case Message.Marked.WONTSEND:
@@ -287,10 +286,10 @@ public class ConversationItemSkeleton : Plugins.ConversationItemWidgetInterface,
             time_label.dispose();
             time_label = null;
         }
-        if (avatar_picture != null) {
-            avatar_picture.unparent();
-            avatar_picture.dispose();
-            avatar_picture = null;
+        if (avatar_image != null) {
+            avatar_image.unparent();
+            avatar_image.dispose();
+            avatar_image = null;
         }
         if (encryption_image != null) {
             encryption_image.unparent();

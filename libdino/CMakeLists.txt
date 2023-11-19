@@ -6,15 +6,9 @@ find_packages(LIBDINO_PACKAGES REQUIRED
     GObject
 )
 
-set(LIBDINO_DEFINITIONS)
-if(LIBDINO_VERSION VERSION_EQUAL "0.56.11")
-    set(LIBDINO_DEFINITIONS ${LIBDINO_DEFINITIONS} VALA_0_56_11)
-endif()
-
 vala_precompile(LIBDINO_VALA_C
 SOURCES
     src/application.vala
-    src/version.vala
 
     src/dbus/login1.vala
     src/dbus/notifications.vala
@@ -40,7 +34,6 @@ SOURCES
     src/service/calls.vala
     src/service/chat_interaction.vala
     src/service/connection_manager.vala
-    src/service/contact_model.vala
     src/service/content_item_store.vala
     src/service/conversation_manager.vala
     src/service/counterpart_interaction_manager.vala
@@ -79,38 +72,36 @@ CUSTOM_DEPS
 PACKAGES
     ${LIBDINO_PACKAGES}
 GENERATE_VAPI
-    echats
+    dino
 GENERATE_HEADER
-    echats
-DEFINITIONS
-    ${LIBDINO_DEFINITIONS}
+    dino
 )
 
-add_custom_command(OUTPUT "${CMAKE_BINARY_DIR}/exports/echats_i18n.h"
+add_custom_command(OUTPUT "${CMAKE_BINARY_DIR}/exports/dino_i18n.h"
 COMMAND
-    cp "${CMAKE_CURRENT_SOURCE_DIR}/src/echats_i18n.h" "${CMAKE_BINARY_DIR}/exports/echats_i18n.h"
+    cp "${CMAKE_CURRENT_SOURCE_DIR}/src/dino_i18n.h" "${CMAKE_BINARY_DIR}/exports/dino_i18n.h"
 DEPENDS
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/echats_i18n.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/dino_i18n.h"
 COMMENT
-    Copy header file echats_i18n.h
+    Copy header file dino_i18n.h
 )
 
-add_custom_target(echats-vapi
+add_custom_target(dino-vapi
 DEPENDS
-    ${CMAKE_BINARY_DIR}/exports/echats.vapi
-    ${CMAKE_BINARY_DIR}/exports/echats.deps
-    ${CMAKE_BINARY_DIR}/exports/echats_i18n.h
+    ${CMAKE_BINARY_DIR}/exports/dino.vapi
+    ${CMAKE_BINARY_DIR}/exports/dino.deps
+    ${CMAKE_BINARY_DIR}/exports/dino_i18n.h
 )
 
 add_definitions(${VALA_CFLAGS} -DDINO_SYSTEM_PLUGIN_DIR="${PLUGIN_INSTALL_DIR}" -DDINO_SYSTEM_LIBDIR_NAME="${LIBDIR_NAME}" -DG_LOG_DOMAIN="libdino" -DDINO_VERSION=\"${PROJECT_VERSION}\")
-add_library(libdino SHARED ${LIBDINO_VALA_C} ${CMAKE_BINARY_DIR}/exports/echats_i18n.h)
-add_dependencies(libdino echats-vapi)
+add_library(libdino SHARED ${LIBDINO_VALA_C} ${CMAKE_BINARY_DIR}/exports/dino_i18n.h)
+add_dependencies(libdino dino-vapi)
 target_link_libraries(libdino xmpp-vala qlite ${LIBDINO_PACKAGES} m)
 set_target_properties(libdino PROPERTIES PREFIX "" VERSION 0.0 SOVERSION 0)
 
 install(TARGETS libdino ${TARGET_INSTALL})
-install(FILES ${CMAKE_BINARY_DIR}/exports/echats.vapi ${CMAKE_BINARY_DIR}/exports/echats.deps DESTINATION ${VAPI_INSTALL_DIR})
-install(FILES ${CMAKE_BINARY_DIR}/exports/echats.h ${CMAKE_BINARY_DIR}/exports/echats_i18n.h DESTINATION ${INCLUDE_INSTALL_DIR})
+install(FILES ${CMAKE_BINARY_DIR}/exports/dino.vapi ${CMAKE_BINARY_DIR}/exports/dino.deps DESTINATION ${VAPI_INSTALL_DIR})
+install(FILES ${CMAKE_BINARY_DIR}/exports/dino.h ${CMAKE_BINARY_DIR}/exports/dino_i18n.h DESTINATION ${INCLUDE_INSTALL_DIR})
 
 if(BUILD_TESTS)
     vala_precompile(LIBDINO_TEST_VALA_C
@@ -119,7 +110,7 @@ if(BUILD_TESTS)
         "tests/testcase.vala"
         "tests/common.vala"
     CUSTOM_VAPIS
-        ${CMAKE_BINARY_DIR}/exports/echats_internal.vapi
+        ${CMAKE_BINARY_DIR}/exports/dino_internal.vapi
         ${CMAKE_BINARY_DIR}/exports/xmpp-vala.vapi
         ${CMAKE_BINARY_DIR}/exports/qlite.vapi
     PACKAGES

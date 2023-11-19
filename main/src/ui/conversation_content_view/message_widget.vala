@@ -260,7 +260,7 @@ public class MessageMetaItem : ContentMetaItem {
     }
 }
 
-[GtkTemplate (ui = "/im/echats/Dino/message_item_widget_edit_mode.ui")]
+[GtkTemplate (ui = "/im/dino/Dino/message_item_widget_edit_mode.ui")]
 public class MessageItemEditMode : Box {
 
     public signal void cancelled();

@@ -4,7 +4,7 @@
     <template class="DinoUiConversationListTitlebar" parent="GtkBox">
         <property name="hexpand">0</property>
         <style>
-            <class name="echats-header-left"/>
+            <class name="dino-header-left"/>
         </style>
         <child>
             <object class="GtkBox">

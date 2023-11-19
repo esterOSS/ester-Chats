@@ -127,7 +127,7 @@ public class ReactionsWidget : Grid {
 
         add_button = new MenuButton() { tooltip_text= _("Add reaction") };
         add_button.add_css_class("pill");
-        Util.menu_button_set_icon_with_size(add_button, "echats-emoticon-add-symbolic", 14);
+        Util.menu_button_set_icon_with_size(add_button, "dino-emoticon-add-symbolic", 14);
 
         EmojiChooser chooser = new EmojiChooser();
         chooser.emoji_picked.connect((emoji) => {

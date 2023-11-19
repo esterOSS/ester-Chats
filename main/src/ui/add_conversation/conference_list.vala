@@ -112,7 +112,7 @@ internal class ConferenceListRow : ListRow {
             via_label.visible = false;
         }
 
-        picture.model = new ViewModel.CompatAvatarPictureModel(stream_interactor).set_conversation(new Conversation(jid, account, Conversation.Type.GROUPCHAT));
+        image.set_conversation(stream_interactor, new Conversation(jid, account, Conversation.Type.GROUPCHAT));
     }
 }
 

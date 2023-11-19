@@ -19,7 +19,7 @@ SOURCES
     src/register_plugin.vala
 CUSTOM_VAPIS
     ${CMAKE_BINARY_DIR}/exports/xmpp-vala.vapi
-    ${CMAKE_BINARY_DIR}/exports/echats.vapi
+    ${CMAKE_BINARY_DIR}/exports/dino.vapi
     ${CMAKE_BINARY_DIR}/exports/qlite.vapi
     ${CMAKE_BINARY_DIR}/exports/crypto-vala.vapi
     ${CMAKE_CURRENT_SOURCE_DIR}/vapi/nice.vapi

@@ -34,7 +34,7 @@ namespace Dino.Plugins.Omemo {
         public CallEncryptionWidget(TrustLevel trust) {
             if (trust == TrustLevel.VERIFIED) {
                 title = "This call is <b>encrypted and verified</b> with OMEMO.";
-                icon = "echats-security-high-symbolic";
+                icon = "dino-security-high-symbolic";
                 should_show_keys = false;
             } else {
                 title = "This call is encrypted with OMEMO.";

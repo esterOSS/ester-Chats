@@ -1,7 +1,6 @@
-![ester Chats](https://dino.im/img/readme_header.svg)
+![ester Chats](./data/icons/scalable/apps/co.uk.esteros.Chats.svg)
 =======
-
-![screenshots](https://dino.im/img/screenshot-main.png)
+ester Chats is a modern chat app, based on the Jabber/XMPP client Dino.
 
 Installation
 ------------

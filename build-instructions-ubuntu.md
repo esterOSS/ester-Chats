@@ -31,4 +31,4 @@ gstreamer-app-1.0, gstreamer-audio-1.0, gstreamer-rtp-1.0 and gstreamer-video-1.
 6. To install it, type sudo make install 
 7. To fix the build, so that it loads the necessary compiled libraries and prevent the loading shared libraries error when launching it, type cd /etc/ld.so.conf.d/ , then create a local.conf file with any CLI text editor (like nano) and edit the file so that it contains "/usr/local/lib" (without quotes) in the file, then save it.
 8. To fix the missing icons, type sudo cp -r /home/[username]/echats/main/data/icons/scalable /usr/share/icons/hicolor
-9. To run your freshly compilied build of ester Chats, type echats in the terminal or open the ester Chats icon inside of your desktop enviroment, and done!
+9. To run your freshly compilied build of ester Chats, type dino in the terminal or open the ester Chats icon inside of your desktop enviroment, and done!

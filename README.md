@@ -2,6 +2,8 @@
 
 ester Chats is a modern chat app, based on the Jabber/XMPP client Dino.
 
+# ARCHIVED AS DEVELOPMENT IS HALTED
+
 <!---Installation
 ------------
 Have a look at the [prebuilt packages](https://github.com/dino/dino/wiki/Distribution-Packages).

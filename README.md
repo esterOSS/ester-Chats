@@ -1,9 +1,8 @@
 <img src="./main/data/icons/scalable/apps/im.dino.Dino.svg" width="100">
 
-ester Chats is a modern chat app, based on the Jabber/XMPP client Dino.
+ester Chats is a modern chatting app, based on the Jabber/XMPP client Dino.
 
-# ARCHIVED AS DEVELOPMENT IS HALTED
-
+# For Use of esterOS 26.0/uOS 1.0
 <!---Installation
 ------------
 Have a look at the [prebuilt packages](https://github.com/dino/dino/wiki/Distribution-Packages).

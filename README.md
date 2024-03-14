@@ -1,4 +1,4 @@
-<img src="./main/data/icons/scalable/apps/im.dino.Dino.svg" width="100">
+ 
 
 ester Chats is a modern chatting app, based on the Jabber/XMPP client Dino.
 

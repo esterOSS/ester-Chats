@@ -1,4 +1,5 @@
- 
+ ![Chats26](https://github.com/esterOSS/Chats-Desktop/assets/126920320/75da420f-945f-41c9-99ed-8443c258bc7b)
+
 
 ester Chats is a modern chatting app, based on the Jabber/XMPP client Dino.
 
